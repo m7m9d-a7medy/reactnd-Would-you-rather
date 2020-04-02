@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
 import './index.css'
@@ -15,7 +16,9 @@ const store = createStore(reducers, composeEnhancers(middleware))
 
 const app = (
     <Provider store={store}>
-        <App />
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
     </Provider>
 )
 
