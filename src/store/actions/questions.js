@@ -1,4 +1,4 @@
-import { FETCH_QUESTIONS_SUCCESSFUL, FETCH_QUESTIONS_FAILED } from './actionTypes'
+import { FETCH_QUESTIONS_SUCCESSFUL, FETCH_QUESTIONS_FAILED, SAVE_ANSWER_SUCCESSFUL, SAVE_ANSWER_FAILED, SAVE_ANSWER_START } from './actionTypes'
 import { _getQuestions } from '../../utils/api'
 
 const fetchQuestionsSuccessful = questions => ({
@@ -23,4 +23,17 @@ export const fetchQuestions = () => dispatch => {
             dispatch(fetchQuestionsFailed(err))
             console.log(err)
         })
+}
+
+export const saveAnswerStart = (uid, qid, option) => ({
+    type: SAVE_ANSWER_START,
+    uid,
+    qid,
+    option,
+})
+
+export const saveAnswer = (uid, qid, option) => dispatch => {
+    // Optimistic update
+    dispatch(saveAnswerStart(uid, qid, option))
+
 }

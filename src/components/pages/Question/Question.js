@@ -2,8 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import classes from './Question.module.css'
+import { saveAnswer } from '../../../store/actions/questions'
 
 class Question extends Component {
+    answerHandler = option => {
+        const { id: qid } = this.props.match.params
+        const { id: uid, dispatch } = this.props
+
+        console.log('[Answer], ', qid, uid, option)
+        dispatch(saveAnswer(uid, qid, option))
+    }
+
     render() {
         const { authenticated, optionOne, optionTwo, timestamp, authorName, avatarURL, isAnswered } = this.props
 
@@ -11,11 +20,15 @@ class Question extends Component {
             return <Redirect to='/' />
         }
 
+        const clickHandler = !isAnswered
+            ? e => this.answerHandler(e.target.id)
+            : null
+
         return (
             <div className={classes.Question}>
                 <p>Asked by: {authorName}</p>
-                <p>Option 1: {optionOne.text}, Votes: {optionOne.votes.length}</p>
-                <p>Option 2: {optionTwo.text}, Votes: {optionTwo.votes.length}</p>
+                <p id='optionOne' onClick={clickHandler}>Option 1: {optionOne.text}, Votes: {optionOne.votes.length}</p>
+                <p id='optionTwo' onClick={clickHandler}>Option 2: {optionTwo.text}, Votes: {optionTwo.votes.length}</p>
                 <p>Time: {new Date(timestamp).toLocaleDateString()}</p>
                 <p>Answered: {isAnswered}</p>
                 <div style={{
@@ -38,7 +51,7 @@ const mapStateToProps = ({ authedUserData, questions, users }, { match }) => {
 
         return {
             authenticated: authedUserData !== null,
-            optionOne, optionTwo, timestamp, authorName, isAnswered, avatarURL
+            optionOne, optionTwo, timestamp, authorName, isAnswered, avatarURL, id
         }
     } else {
         return {
