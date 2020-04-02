@@ -1,10 +1,92 @@
+.Auth {
+    max-width: 50rem;
+    margin: 2rem auto;
+    padding: 3rem 8rem;
+    border: .6rem double var(--color-primary-darkest);
+    box-shadow: 0 .5rem 1rem inset var(--color-primary-lighter);
+    background-color: var(--color-primary-darker);
+    border-radius: 3rem .5rem 3rem .5rem;
+    display:  flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.LogoBox {
+    max-width: 25rem;
+    margin-bottom: 2rem;
+}
+
+.Logo {
+    display: block;
+    width: 100%;
+}
+
+.TextInput {
+    font: inherit;
+    width: 100%;
+    font-size: 1.6rem;
+    line-height: 1.7;
+    padding: .5rem 1.7rem;
+    margin: 1rem 0;
+    display: block;
+    
+    border: .15rem inset var(--color-primary-light);
+    border-radius: 10rem;
+}
+
+.TextInput:focus {
+    outline: none;
+    border: .15rem outset var(--color-primary-light);
+}
+
+.Form {
+    width: 100%;
+    display: flex;
+    flex-direction:  column;
+    align-items: center;
+}
+
+.Btn {
+    display: block;
+    cursor: pointer;
+    padding: 2rem 4rem;
+    font-size: 1.8rem;
+    font-weight: 200;
+    margin: 1rem auto;
+    background-color: var(--color-secondary-light);
+    border: .1rem solid transparent;
+    box-shadow: 0 .5rem 1rem inset var(--color-secondary-lightest);
+    border-radius: .5rem;
+}
+
+.Btn:focus {
+    outline: none;
+    border: .1rem solid var(--color-secondary);
+}
+
 .ImageInput {
-    min-width: 60px;
-    height: 60px;
+    cursor: pointer;
+    min-width: 12rem;
+    height: 12rem;
     background-color: white;
     background-image: none;
-    background-size: 32px 32px;
+    background-size: 12rem 12rem;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: 50%;  
+    border-radius: 50%;
+    border: .2rem solid var(--color-primary-dark);
+    margin: 1rem 0;
+}
+
+.SwitchLink {
+    color: var(--color-white);
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin: 1rem 0 0;
+    border: .1rem solid transparent;
+    padding: .5rem;
+}
+
+.SwitchLink:hover {
+    border-bottom: .1rem solid var(--color-primary-lightest);
 }

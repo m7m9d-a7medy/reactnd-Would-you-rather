@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import classes from './Auth.module.css'
-import ImageInput from './ImageInput'
+import logo from '../../../assets/imgs/logo.png'
+import ImageInput from './ImageInput/ImageInput'
 import { initAuth, logout } from '../../../store/actions/auth'
 
 class Auth extends Component {
@@ -11,7 +12,7 @@ class Auth extends Component {
         username: '',
         name: '',
         avatarURL: '',
-        isSignUp: false
+        isSignUp: true
     }
 
     handleChange = (field, value) => {
@@ -47,7 +48,15 @@ class Auth extends Component {
         if (isSignUp) {
             signUpFields = (
                 <Fragment>
+                    <ImageInput
+                        name='avatarURL'
+                        maxHeight={128}
+                        className={classes.ImageInput}
+                        value={avatarURL}
+                        onChange={this.handleChange}
+                    />
                     <input
+                        className={classes.TextInput}
                         name='username'
                         type='text'
                         placeholder='Your username'
@@ -56,6 +65,7 @@ class Auth extends Component {
                         required
                     />
                     <input
+                        className={classes.TextInput}
                         name='name'
                         type='text'
                         placeholder='Your name'
@@ -63,22 +73,20 @@ class Auth extends Component {
                         onChange={e => this.handleChange('name', e.target.value)}
                         required
                     />
-                    <ImageInput
-                        name='avatarURL'
-                        maxHeight={128}
-                        className={classes.ImageInput}
-                        value={avatarURL}
-                        onChange={this.handleChange}
-                    />
                 </Fragment>
             )
         }
 
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
+            <div className={classes.Auth}>
+                <div className={classes.LogoBox}>
+                    <img className={classes.Logo} src={logo} alt='Would you rather? logo'/>
+                </div>
+                <form className={classes.Form} onSubmit={this.handleSubmit}>
                     {signUpFields}
                     <input
+                        className={classes.TextInput}
+                        required
                         name='email'
                         type='email'
                         placeholder='Your Email'
@@ -86,25 +94,29 @@ class Auth extends Component {
                         onChange={e => this.handleChange('email', e.target.value)}
                     />
                     <input
+                        className={classes.TextInput}
+                        required
                         name='password'
                         type='password'
                         placeholder='Your password'
                         value={password}
                         onChange={e => this.handleChange('password', e.target.value)}
                     />
-                    <button type="submit">
+                    <button className={classes.Btn} type="submit">
                         {
                             isSignUp ? 'Sign up' : 'Sign in'
                         }
                     </button>
                 </form>
-                <button onClick={this.switchSubmitType}>
-                    Switch to {isSignUp ? 'Sign in' : 'Sign up'}
-                </button>
+                <p className={classes.SwitchLink} onClick={this.switchSubmitType}>
+                    {isSignUp ? 'Already have an account?' : 'Register now'}
+                </p>
                 {/* Test */}
+                {/* 
                 <button href='' onClick={this.logout}>
                     Logout
                 </button>
+                */}
             </div>
         )
     }
