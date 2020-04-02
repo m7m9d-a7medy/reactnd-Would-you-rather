@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { fetchQuestionsAndUsers } from '../../../store/actions/shared'
+import QuestionCard from './QuestionCard/QuestionCard'
 
 class Dashboard extends Component {
     componentDidMount() {
@@ -22,7 +23,9 @@ class Dashboard extends Component {
                 Dashboard
                 <ul>
                     {
-                        questionIds.map(id => <li key={id}>{id}</li>)
+                        questionIds.map(id => (
+                            <QuestionCard key={id} id={id} />
+                        ))
                     }
                 </ul>
             </div>

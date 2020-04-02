@@ -27,8 +27,8 @@ export const fetchQuestionsAndUsers = () => dispatch => {
 
     Promise.all(promises)
         .then(responses => {
-            dispatch(fetchQuestionsSuccessful(responses[0]))
             dispatch(fetchUsersSuccessful(responses[1]))
+            dispatch(fetchQuestionsSuccessful(responses[0]))
         })
         .catch(err => {
             console.log(err)
