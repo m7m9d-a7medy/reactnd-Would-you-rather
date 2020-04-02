@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import classes from './Auth.module.css'
 import logo from '../../../assets/imgs/logo.png'
 import ImageInput from './ImageInput/ImageInput'
-import { initAuth, logout } from '../../../store/actions/auth'
+import { initAuth } from '../../../store/actions/auth'
 
 class Auth extends Component {
     state = {
@@ -29,10 +30,6 @@ class Auth extends Component {
         }))
     }
 
-    logout = () => {
-        this.props.dispatch(logout())
-    }
-
     handleSubmit = e => {
         e.preventDefault()
         console.log('Submitted', this.state)
@@ -43,6 +40,11 @@ class Auth extends Component {
 
     render() {
         const { email, password, username, name, avatarURL, isSignUp } = this.state
+        const { authenticated } = this.props
+
+        if (authenticated) {
+            return <Redirect to='/dashboard' />
+        }
 
         let signUpFields = null
         if (isSignUp) {
@@ -111,15 +113,15 @@ class Auth extends Component {
                 <p className={classes.SwitchLink} onClick={this.switchSubmitType}>
                     {isSignUp ? 'Already have an account?' : 'Register now'}
                 </p>
-                {/* Test */}
-                {/* 
-                <button href='' onClick={this.logout}>
-                    Logout
-                </button>
-                */}
             </div>
         )
     }
 }
 
-export default connect()(Auth)
+const mapStateToProps = ({authedUserData}) => {
+    return {
+        authenticated: authedUserData !== null
+    }
+}
+
+export default connect(mapStateToProps)(Auth)
