@@ -1,16 +1,16 @@
 import { AUTH_SUCCESS, AUTH_FAIL, AUTH_LOGOUT } from '../actions/actionTypes'
 
-export default (state = {}, action) => {
+export default (state = null, action) => {
     switch (action.type) {
 
         case AUTH_SUCCESS:
             return action.authedUserData
 
         case AUTH_FAIL: 
-            return {}
+            return null
         
         case AUTH_LOGOUT:
-            return {}
+            return null
         
         default:
             return state
