@@ -1,5 +1,4 @@
 import firebase from './firebase'
-import { users, questions } from './_DATA'
 
 function generateUID() {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)

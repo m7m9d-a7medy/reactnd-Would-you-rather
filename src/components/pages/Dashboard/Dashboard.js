@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { fetchQuestions } from '../../../store/actions/questions'
+import { fetchQuestionsAndUsers } from '../../../store/actions/shared'
 
 class Dashboard extends Component {
     componentDidMount() {
         const { authenticated, dispatch } = this.props
         if (authenticated) {
-            dispatch(fetchQuestions())
+            dispatch(fetchQuestionsAndUsers())
         }
     }
 
