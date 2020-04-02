@@ -1,25 +1,5 @@
 import firebase from './firebase'
-
-function generateUID() {
-    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
-}
-
-
-function formatQuestion({ optionOneText, optionTwoText, author }) {
-    return {
-        id: generateUID(),
-        timestamp: Date.now(),
-        author,
-        optionOne: {
-            votes: [],
-            text: optionOneText,
-        },
-        optionTwo: {
-            votes: [],
-            text: optionTwoText,
-        }
-    }
-}
+import { formatQuestion } from './helpers'
 
 export const storeLocalUsers = users => {
     for (const user of Object.keys(users)) {
@@ -130,9 +110,12 @@ export const _saveQuestionAnswer = ({ authedUser, qid, answer }) => {
 
                 const updatedQuestionData = {
                     ...questionData,
-                    [answer]: {
-                        ...questionData[answer],
-                        votes: questionData[answer].votes.concat([authedUser])
+                    [qid]: {
+                        ...questionData[qid],
+                        [answer]: {
+                            ...questionData[qid][answer],
+                            votes: questionData[qid][answer].votes.concat([authedUser])
+                        }
                     }
                 }
 
