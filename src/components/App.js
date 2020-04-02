@@ -5,6 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import Auth from './pages/Auth/Auth'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Navigation from './layout/navigation/Navigation'
+import Question from './pages/Question/Question'
 
 class App extends Component {
   logout = () => {
@@ -18,7 +19,7 @@ class App extends Component {
         <Switch>
           <Route path='/dashboard' component={Dashboard} />
           <Route path='/auth' component={Auth} />
-          <Route path='/questions/:id' render={() => <p>Question</p>} />
+          <Route path='/questions/:id' component={Question} />
           <Route path='/add' render={() => <p>New Question</p>} />
           <Route path='/leaderboard' render={() => <p>Leaderboard</p>} />
           <Redirect to='/auth' />
