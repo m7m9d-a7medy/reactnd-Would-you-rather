@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import classes from './Auth.module.css'
 import ImageInput from './ImageInput'
+import { initAuth } from '../../../store/actions/auth'
 
 class Auth extends Component {
     state = {
@@ -23,6 +25,7 @@ class Auth extends Component {
         console.log('Submitted', this.state)
 
         // todo: dispatch auth action
+        this.props.dispatch(initAuth(this.state))
     }
 
     render() {
@@ -80,4 +83,4 @@ class Auth extends Component {
     }
 }
 
-export default Auth
+export default connect()(Auth)
