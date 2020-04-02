@@ -6,9 +6,9 @@ const authSuccess = authedUserData => ({
     authedUserData,
 })
 
-const authFail = authError => ({
+const authFail = error => ({
     type: AUTH_FAIL,
-    authError,
+    error,
 })
 
 const authLogout = () => ({

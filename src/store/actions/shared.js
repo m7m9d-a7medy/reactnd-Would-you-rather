@@ -1,4 +1,4 @@
-import { FETCH_QUESTIONS_SUCCESSFUL, FETCH_USERS_SUCCESSFULL, FETCH_QUESTIONS_FAILED, FETCH_USERS_FAILED } from './actionTypes'
+import { FETCH_QUESTIONS_SUCCESSFUL, FETCH_USERS_SUCCESSFUL, FETCH_QUESTIONS_FAILED, FETCH_USERS_FAILED } from './actionTypes'
 import { _getQuestions, _getUsers } from '../../utils/api'
 
 const fetchQuestionsSuccessful = questions => ({
@@ -7,7 +7,7 @@ const fetchQuestionsSuccessful = questions => ({
 })
 
 const fetchUsersSuccessful = users => ({
-    type: FETCH_USERS_SUCCESSFULL,
+    type: FETCH_USERS_SUCCESSFUL,
     users,
 })
 

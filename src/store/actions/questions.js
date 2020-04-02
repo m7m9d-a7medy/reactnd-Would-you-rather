@@ -6,6 +6,11 @@ const fetchQuestionsSuccessful = questions => ({
     questions,
 })
 
+const fetchQuestionsFailed = error => ({
+    type: FETCH_QUESTIONS_FAILED,
+    error,
+})
+
 export const fetchQuestions = () => dispatch => {
     // todo: Loading start
     _getQuestions()
@@ -15,6 +20,7 @@ export const fetchQuestions = () => dispatch => {
         })
         .catch(err => {
             // todo: Loading end
+            dispatch(fetchQuestionsFailed(err))
             console.log(err)
         })
 }
