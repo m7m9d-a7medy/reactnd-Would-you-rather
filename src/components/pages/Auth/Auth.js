@@ -9,6 +9,7 @@ class Auth extends Component {
         email: '',
         password: '',
         username: '',
+        name: '',
         avatarURL: '',
         isSignUp: false
     }
@@ -40,7 +41,7 @@ class Auth extends Component {
     }
 
     render() {
-        const { email, password, username, avatarURL, isSignUp } = this.state
+        const { email, password, username, name, avatarURL, isSignUp } = this.state
 
         let signUpFields = null
         if (isSignUp) {
@@ -52,6 +53,14 @@ class Auth extends Component {
                         placeholder='Your username'
                         value={username}
                         onChange={e => this.handleChange('username', e.target.value)}
+                        required
+                    />
+                    <input
+                        name='name'
+                        type='text'
+                        placeholder='Your name'
+                        value={name}
+                        onChange={e => this.handleChange('name', e.target.value)}
                         required
                     />
                     <ImageInput
@@ -89,13 +98,13 @@ class Auth extends Component {
                         }
                     </button>
                 </form>
-                <a href='#' onClick={this.switchSubmitType}>
-                    Switch to { isSignUp ? 'Sign in' : 'Sign up' }
-                </a>
+                <button onClick={this.switchSubmitType}>
+                    Switch to {isSignUp ? 'Sign in' : 'Sign up'}
+                </button>
                 {/* Test */}
-                <a href='#' onClick={this.logout}>
+                <button href='' onClick={this.logout}>
                     Logout
-                </a>
+                </button>
             </div>
         )
     }

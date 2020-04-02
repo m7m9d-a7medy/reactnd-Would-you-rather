@@ -7,7 +7,7 @@ export default (state = {}, action) => {
             return action.authedUserData
 
         case AUTH_FAIL: 
-            return action.authError
+            return {}
         
         case AUTH_LOGOUT:
             return {}

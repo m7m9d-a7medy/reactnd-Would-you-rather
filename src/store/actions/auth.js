@@ -1,4 +1,3 @@
-import firebase from '../../utils/firebase'
 import { AUTH_SUCCESS, AUTH_FAIL, AUTH_LOGOUT } from './actionTypes'
 import { _signUp, _signIn, _logout } from '../../utils/authApi'
 
@@ -16,11 +15,11 @@ const authLogout = () => ({
     type: AUTH_LOGOUT
 })
 
-export const initAuth = ({ email, password, username, avatarURL, isSignUp }) => {
+export const initAuth = ({ email, password, username, name, avatarURL, isSignUp }) => {
     return dispatch => {
 
         if (isSignUp) {
-            _signUp(email, password, username, avatarURL)
+            _signUp(email, password, username, name, avatarURL)
                 .then(res => {
                     dispatch(authSuccess(res))
                     // todo: Loading end
@@ -33,11 +32,11 @@ export const initAuth = ({ email, password, username, avatarURL, isSignUp }) => 
         } else {
             _signIn(email, password)
                 .then(res => {
-                    dispatch(authSuccess('Signed in'))
+                    dispatch(authSuccess(res))
                 })
                 .catch(err => {
                     console.log(err)
-                    dispatch(authFail)
+                    dispatch(authFail())
                 })
         }
     }

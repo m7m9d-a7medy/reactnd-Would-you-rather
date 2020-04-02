@@ -1,10 +1,10 @@
 import firebase from './firebase'
 
-export const _signUp = (email, password, username, avatarURL) => {
+export const _signUp = (email, password, username, name, avatarURL) => {
     return new Promise((resolve, reject) => {
         // User is signing up
         firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(userCredintial => {
+            .then(userCredential => {
                 // Successfully created the user
                 // Now uploading the avatar picture
                 const storageRef = firebase.storage().ref()
@@ -17,41 +17,49 @@ export const _signUp = (email, password, username, avatarURL) => {
                         res.ref.getDownloadURL()
                             .then(url => {
                                 // Fetched url correctly
-                                // Now updating the user with username and stored avatar url
-                                userCredintial.user.updateProfile({
-                                    displayName: username,
-                                    photoURL: url
+                                // Done creating the user
+                                // Now creating a firebase document for the user
+                                userCredential.user.updateProfile({
+                                    displayName: username
                                 })
                                     .then(() => {
-                                        resolve({ email, password, username, url })
-                                        // todo: Loading end
+                                        const newUser = {
+                                            id: username,
+                                            name: name,
+                                            avatarURL: url,
+                                            answers: {},
+                                            questions: []
+                                        }
+
+                                        firebase.firestore().doc(`users/${username}`).set(newUser)
+                                            .then(() => resolve(newUser))
+                                            .catch(err => reject({'Database Error': err }))
+                                        
                                     })
-                                    .catch(err => {
-                                        reject(err)
-                                    })
+                                    .catch(err => reject({'User credentials Error': err}))
                             })
-                            .catch(err => reject(err))
+                            .catch(err => reject({'Image url fetch Error': err}))
                     })
-                    .catch(err => reject(err))
+                    .catch(err => reject({'Image upload Error': err}))
             })
-            .catch(err => {
-                reject(err)
-            })
+            .catch(err => reject({'User authentication Error': err}))
     })
 }
 
 export const _signIn = (email, password) => {
     return new Promise((resolve, reject) => {
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(userCredintial => {
-                console.log(userCredintial)
-                resolve(userCredintial)
-                // todo: Loading end
+            .then(userCredential => {
+                // console.log(userCredential.user.displayName)
+                firebase.firestore().doc(`users/${userCredential.user.displayName}`).get()
+                    .then(userDoc => {
+                        // console.log(userDoc)
+                        resolve(userDoc.data())
+                    })
+                    .catch(err => reject({'Database Error': err}))
             })
             .catch(err => {
-                console.log(err)
-                reject(err)
-                // todo: Loading end
+                reject({'User authentication Error': err})
             })
     })
 }
@@ -60,6 +68,6 @@ export const _logout = () => {
     return new Promise((resolve, reject) => {
         firebase.auth().signOut()
             .then(() => resolve())
-            .catch(err => reject(err))
+            .catch(err => reject({'User authentication Error': err}))
     })
 }
