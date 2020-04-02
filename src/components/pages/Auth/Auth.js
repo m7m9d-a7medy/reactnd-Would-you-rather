@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import classes from './Auth.module.css'
 import ImageInput from './ImageInput'
-import { initAuth } from '../../../store/actions/auth'
+import { initAuth, logout } from '../../../store/actions/auth'
 
 class Auth extends Component {
     state = {
@@ -10,7 +10,7 @@ class Auth extends Component {
         password: '',
         username: '',
         avatarURL: '',
-        isSignUp: true
+        isSignUp: false
     }
 
     handleChange = (field, value) => {
@@ -18,6 +18,17 @@ class Auth extends Component {
         this.setState({
             [field]: value
         })
+    }
+
+    switchSubmitType = () => {
+        this.setState(prevState => ({
+            ...prevState,
+            isSignUp: !prevState.isSignUp
+        }))
+    }
+
+    logout = () => {
+        this.props.dispatch(logout())
     }
 
     handleSubmit = e => {
@@ -78,6 +89,13 @@ class Auth extends Component {
                         }
                     </button>
                 </form>
+                <a href='#' onClick={this.switchSubmitType}>
+                    Switch to { isSignUp ? 'Sign in' : 'Sign up' }
+                </a>
+                {/* Test */}
+                <a href='#' onClick={this.logout}>
+                    Logout
+                </a>
             </div>
         )
     }
