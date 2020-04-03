@@ -1,0 +1,6 @@
+.UserCard {
+    margin: 2rem;
+    padding: 2rem;
+    border: .2rem solid var(--color-black);
+    font-size: 1.8rem;
+}

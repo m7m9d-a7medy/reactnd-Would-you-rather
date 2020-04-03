@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard/Dashboard'
 import Navigation from './layout/navigation/Navigation'
 import Question from './pages/Question/Question'
 import NewQuestion from './pages/NewQuestion/NewQuestion'
+import Leaderboard from './pages/Leaderboard/Leaderboard'
 
 class App extends Component {
   logout = () => {
@@ -22,7 +23,7 @@ class App extends Component {
           <Route path='/auth' component={Auth} />
           <Route path='/questions/:id' component={Question} />
           <Route path='/add' component={NewQuestion} />
-          <Route path='/leaderboard' render={() => <p>Leaderboard</p>} />
+          <Route path='/leaderboard' component={Leaderboard} />
           <Redirect to='/auth' />
         </Switch>
       </div>
