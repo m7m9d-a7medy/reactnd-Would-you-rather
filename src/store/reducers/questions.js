@@ -1,6 +1,6 @@
-import { FETCH_QUESTIONS_SUCCESSFUL, SAVE_ANSWER_START, SAVE_ANSWER_FAILED, NEW_QUESTION_START, NEW_QUESTION_FAILED } from '../actions/actionTypes'
+import { SAVE_ANSWER_START, SAVE_ANSWER_FAILED, NEW_QUESTION_START, NEW_QUESTION_FAILED, FETCH_DATA_SUCCESSFUL } from '../actions/actionTypes'
 
-const fetchQuestionsSuccessful = (state, action) => action.questions
+const fetchQuestionsSuccessful = (state, action) => action.data[0]
 
 const saveAnswerStart = (state, action) => {
     const { qid, uid, answer } = action
@@ -47,7 +47,7 @@ const newQuestionFailed = (state, action) => {
 // Reducer
 export default (state = {}, action) => {
     switch (action.type) {
-        case FETCH_QUESTIONS_SUCCESSFUL:
+        case FETCH_DATA_SUCCESSFUL:
             return fetchQuestionsSuccessful(state, action)
 
         case SAVE_ANSWER_START:

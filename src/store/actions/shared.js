@@ -1,38 +1,31 @@
-import { FETCH_QUESTIONS_SUCCESSFUL, FETCH_USERS_SUCCESSFUL, FETCH_QUESTIONS_FAILED, FETCH_USERS_FAILED } from './actionTypes'
+import { FETCH_DATA_START, FETCH_DATA_SUCCESSFUL, FETCH_DATA_FAILED } from './actionTypes'
 import { _getQuestions, _getUsers } from '../../utils/api'
 
-const fetchQuestionsSuccessful = questions => ({
-    type: FETCH_QUESTIONS_SUCCESSFUL,
-    questions,
+const fetchDataStart = () => ({
+    type: FETCH_DATA_START,
 })
 
-const fetchUsersSuccessful = users => ({
-    type: FETCH_USERS_SUCCESSFUL,
-    users,
+const fetchDataSuccessful = data => ({
+    type: FETCH_DATA_SUCCESSFUL,
+    data,
 })
 
-const fetchQuestionsFailed = error => ({
-    type: FETCH_QUESTIONS_FAILED,
+const fetchDataFailed = error => ({
+    type: FETCH_DATA_FAILED,
     error,
 })
 
-const fetchUsersFailed = error => ({
-    type: FETCH_USERS_FAILED,
-    error,
-})
-
-export const fetchQuestionsAndUsers = () => dispatch => {
+export const fetchData = () => dispatch => {
     // todo: Loading start
+    dispatch(fetchDataStart())
     const promises = [_getQuestions(), _getUsers()]
 
     Promise.all(promises)
-        .then(responses => {
-            dispatch(fetchUsersSuccessful(responses[1]))
-            dispatch(fetchQuestionsSuccessful(responses[0]))
+        .then(data => {
+            dispatch(fetchDataSuccessful(data))
         })
         .catch(err => {
             console.log(err)
-            dispatch(fetchQuestionsFailed(err))
-            dispatch(fetchUsersFailed(err))
+            dispatch(fetchDataFailed(err))
         })
 }

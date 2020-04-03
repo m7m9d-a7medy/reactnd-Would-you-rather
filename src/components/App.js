@@ -7,13 +7,13 @@ import Navigation from './layout/navigation/Navigation'
 import Question from './pages/Question/Question'
 import NewQuestion from './pages/NewQuestion/NewQuestion'
 import Leaderboard from './pages/Leaderboard/Leaderboard'
-import { fetchQuestionsAndUsers } from '../store/actions/shared'
+import { fetchData } from '../store/actions/shared'
 
 class App extends Component {
   componentDidUpdate() {
     const { authenticated, dispatch } = this.props
     if (authenticated) {
-      dispatch(fetchQuestionsAndUsers())
+      dispatch(fetchData())
     }
   }
 

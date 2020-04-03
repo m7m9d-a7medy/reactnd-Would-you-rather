@@ -1,30 +1,7 @@
-import { FETCH_QUESTIONS_SUCCESSFUL, FETCH_QUESTIONS_FAILED, SAVE_ANSWER_SUCCESSFUL, SAVE_ANSWER_FAILED, SAVE_ANSWER_START, NEW_QUESTION_START, NEW_QUESTION_SUCCESSFUL } from './actionTypes'
-import { _getQuestions, _saveQuestionAnswer, _saveQuestion } from '../../utils/api'
+import { SAVE_ANSWER_SUCCESSFUL, SAVE_ANSWER_FAILED, SAVE_ANSWER_START, NEW_QUESTION_START, NEW_QUESTION_SUCCESSFUL } from './actionTypes'
+import { _saveQuestionAnswer, _saveQuestion } from '../../utils/api'
 import { formatQuestion } from '../../utils/helpers'
 
-const fetchQuestionsSuccessful = questions => ({
-    type: FETCH_QUESTIONS_SUCCESSFUL,
-    questions,
-})
-
-const fetchQuestionsFailed = error => ({
-    type: FETCH_QUESTIONS_FAILED,
-    error,
-})
-
-export const fetchQuestions = () => dispatch => {
-    // todo: Loading start
-    _getQuestions()
-        .then(questions => {
-            // todo: Loading end
-            dispatch(fetchQuestionsSuccessful(questions))
-        })
-        .catch(err => {
-            // todo: Loading end
-            dispatch(fetchQuestionsFailed(err))
-            console.log(err)
-        })
-}
 
 export const saveAnswerStart = (uid, qid, answer) => ({
     type: SAVE_ANSWER_START,

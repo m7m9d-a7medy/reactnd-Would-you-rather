@@ -1,5 +1,9 @@
-import { AUTH_SUCCESS, AUTH_FAIL, AUTH_LOGOUT } from './actionTypes'
+import { AUTH_SUCCESS, AUTH_FAIL, AUTH_LOGOUT, AUTH_START } from './actionTypes'
 import { _signUp, _signIn, _logout } from '../../utils/authApi'
+
+const authStart = () => ({
+    type: AUTH_START
+})
 
 const authSuccess = authedUserData => ({
     type: AUTH_SUCCESS,
@@ -17,6 +21,7 @@ const authLogout = () => ({
 
 export const initAuth = ({ email, password, username, name, avatarURL, isSignUp }) => {
     return dispatch => {
+        dispatch(authStart())
 
         if (isSignUp) {
             _signUp(email, password, username, name, avatarURL)
