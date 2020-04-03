@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import classes from './NewQuestion.module.css'
+import { newQuestion } from '../../../store/actions/questions'
 
 class NewQuestion extends Component {
     state = {
@@ -21,7 +22,10 @@ class NewQuestion extends Component {
     submitNewQuestion = e => {
         e.preventDefault()
         console.log('[NewQuestion]', this.state)
+        const { dispatch, author } = this.props
+        const { optionOneText, optionTwoText } = this.state
         // todo: Save question to database
+        dispatch(newQuestion({optionOneText, optionTwoText, author}))
     }
 
     render() {
@@ -64,7 +68,7 @@ class NewQuestion extends Component {
 const mapStateToProps = ({ authedUserData }) => {
     return {
         authenticated: authedUserData !== null,
-        authorId: authedUserData ? authedUserData.id : null
+        author: authedUserData ? authedUserData.id : null
     }
 }
 

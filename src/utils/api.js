@@ -1,5 +1,4 @@
 import firebase from './firebase'
-import { formatQuestion } from './helpers'
 
 export const storeLocalUsers = users => {
     for (const user of Object.keys(users)) {
@@ -55,10 +54,9 @@ export const _getQuestions = () => {
     })
 }
 
-export const _saveQuestion = question => {
+export const _saveQuestion = (formattedQuestion, author) => {
     return new Promise((res, rej) => {
-        const authedUser = question.author;
-        const formattedQuestion = formatQuestion(question);
+        const authedUser = author;
 
         let promises = []
         const questionsPromise = firebase.firestore()

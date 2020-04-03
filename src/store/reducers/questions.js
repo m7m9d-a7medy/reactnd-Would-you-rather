@@ -1,4 +1,4 @@
-import { FETCH_QUESTIONS_SUCCESSFUL, SAVE_ANSWER_START, SAVE_ANSWER_FAILED } from '../actions/actionTypes'
+import { FETCH_QUESTIONS_SUCCESSFUL, SAVE_ANSWER_START, SAVE_ANSWER_FAILED, NEW_QUESTION_START, NEW_QUESTION_FAILED } from '../actions/actionTypes'
 
 const fetchQuestionsSuccessful = (state, action) => action.questions
 
@@ -30,6 +30,21 @@ const saveAnswerFailed = (state, action) => {
     }
 }
 
+// New question
+const newQuestionStart = (state, action) => {
+    const { question } = action
+    return {
+        ...state,
+        [question.id]: question
+    }
+}
+
+const newQuestionFailed = (state, action) => {
+    const { [action.question.id]: removedQuestion, ...newState } = state
+    return newState
+}
+
+// Reducer
 export default (state = {}, action) => {
     switch (action.type) {
         case FETCH_QUESTIONS_SUCCESSFUL:
@@ -40,6 +55,12 @@ export default (state = {}, action) => {
 
         case SAVE_ANSWER_FAILED:
             return saveAnswerFailed(state, action)
+
+        case NEW_QUESTION_START:
+            return newQuestionStart(state, action)
+
+        case NEW_QUESTION_FAILED:
+            return newQuestionFailed(state, action)
 
         default:
             return state
