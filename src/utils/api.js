@@ -87,8 +87,8 @@ export const _saveQuestionAnswer = ({ authedUser, qid, answer }) => {
 
         firebase.firestore().doc(`users/${authedUser}`).get()
             .then(resp => {
-                console.log(resp.data())
                 userData = resp.data()
+                // console.log(`[Firestore data of ${authedUser}]`, userData)
                 const updatedUserData = {
                     ...userData,
                     answers: {
@@ -105,19 +105,17 @@ export const _saveQuestionAnswer = ({ authedUser, qid, answer }) => {
 
         firebase.firestore().doc(`questions/${qid}`).get()
             .then(resp => {
-                console.log('q data', resp.data())
                 questionData = resp.data()
+                // console.log(`[Firestore data of ${qid}]`, questionData)
 
                 const updatedQuestionData = {
                     ...questionData,
-                    [qid]: {
-                        ...questionData[qid],
-                        [answer]: {
-                            ...questionData[qid][answer],
-                            votes: questionData[qid][answer].votes.concat([authedUser])
-                        }
+                    [answer]: {
+                        ...questionData[answer],
+                        votes: questionData[answer].votes.concat([authedUser])
                     }
                 }
+
 
                 const promise2 = firebase.firestore().doc(`questions/${qid}`).set(updatedQuestionData)
                 promises.push(promise2)

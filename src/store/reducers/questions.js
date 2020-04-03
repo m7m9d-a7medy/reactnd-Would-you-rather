@@ -1,26 +1,45 @@
-import { FETCH_QUESTIONS_SUCCESSFUL, SAVE_ANSWER_START } from '../actions/actionTypes'
+import { FETCH_QUESTIONS_SUCCESSFUL, SAVE_ANSWER_START, SAVE_ANSWER_FAILED } from '../actions/actionTypes'
+
+const fetchQuestionsSuccessful = (state, action) => action.questions
+
+const saveAnswerStart = (state, action) => {
+    const { qid, uid, answer } = action
+    return {
+        ...state,
+        [qid]: {
+            ...state[qid],
+            [answer]: {
+                ...state[qid][answer],
+                votes: state[qid][answer].votes.concat([uid])
+            }
+        }
+    }
+}
+
+const saveAnswerFailed = (state, action) => {
+    const { uid, qid, answer } = action
+    return {
+        ...state,
+        [qid]: {
+            ...state[qid],
+            [answer]: {
+                ...state[qid][answer],
+                votes: state[qid][answer].votes.filter(vote => vote !== uid)
+            }
+        }
+    }
+}
 
 export default (state = {}, action) => {
     switch (action.type) {
         case FETCH_QUESTIONS_SUCCESSFUL:
-            return action.questions
+            return fetchQuestionsSuccessful(state, action)
 
         case SAVE_ANSWER_START:
-            const { qid, uid, option } = action
-            // console.log(uid)
-            // console.log(state[qid][option])
-            const newState = {
-                ...state,
-                [qid]: {
-                    ...state[qid],
-                    [qid]: {
-                        ...state[qid][option],
-                        votes: state[qid][option].votes.concat([uid])
-                    }
-                }
-            }
+            return saveAnswerStart(state, action)
 
-            return newState
+        case SAVE_ANSWER_FAILED:
+            return saveAnswerFailed(state, action)
 
         default:
             return state

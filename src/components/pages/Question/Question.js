@@ -5,12 +5,12 @@ import classes from './Question.module.css'
 import { saveAnswer } from '../../../store/actions/questions'
 
 class Question extends Component {
-    answerHandler = option => {
+    answerHandler = answer => {
         const { id: qid } = this.props.match.params
         const { id: uid, dispatch } = this.props
 
-        console.log('[Answer], ', qid, uid, option)
-        dispatch(saveAnswer(uid, qid, option))
+        console.log('[Answer], ', qid, uid, answer)
+        dispatch(saveAnswer(uid, qid, answer))
     }
 
     render() {
