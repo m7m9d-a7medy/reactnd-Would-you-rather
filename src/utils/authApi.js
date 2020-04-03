@@ -33,16 +33,16 @@ export const _signUp = (email, password, username, name, avatarURL) => {
 
                                         firebase.firestore().doc(`users/${username}`).set(newUser)
                                             .then(() => resolve(newUser))
-                                            .catch(err => reject({'Database Error': err }))
-                                        
+                                            .catch(err => reject({ 'Database Error': err }))
+
                                     })
-                                    .catch(err => reject({'User credentials Error': err}))
+                                    .catch(err => reject({ 'User credentials Error': err }))
                             })
-                            .catch(err => reject({'Image url fetch Error': err}))
+                            .catch(err => reject({ 'Image url fetch Error': err }))
                     })
-                    .catch(err => reject({'Image upload Error': err}))
+                    .catch(err => reject({ 'Image upload Error': err }))
             })
-            .catch(err => reject({'User authentication Error': err}))
+            .catch(err => reject({ 'User authentication Error': err }))
     })
 }
 
@@ -56,10 +56,10 @@ export const _signIn = (email, password) => {
                         // console.log(userDoc)
                         resolve(userDoc.data())
                     })
-                    .catch(err => reject({'Database Error': err}))
+                    .catch(err => reject({ 'Database Error': err }))
             })
             .catch(err => {
-                reject({'User authentication Error': err})
+                reject({ 'User authentication Error': err })
             })
     })
 }
@@ -68,6 +68,6 @@ export const _logout = () => {
     return new Promise((resolve, reject) => {
         firebase.auth().signOut()
             .then(() => resolve())
-            .catch(err => reject({'User authentication Error': err}))
+            .catch(err => reject({ 'User authentication Error': err }))
     })
 }
