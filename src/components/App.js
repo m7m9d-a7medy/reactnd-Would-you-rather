@@ -22,12 +22,12 @@ class App extends Component {
       <div>
         <Navigation />
         <Switch>
-          <Route path='/dashboard' component={Dashboard} />
+          <Route exact path='/' component={Dashboard} />
           <Route path='/auth' component={Auth} />
           <Route path='/questions/:id' component={Question} />
           <Route path='/add' component={NewQuestion} />
           <Route path='/leaderboard' component={Leaderboard} />
-          <Redirect to='/auth' />
+          <Redirect to='/' />
         </Switch>
       </div>
     )

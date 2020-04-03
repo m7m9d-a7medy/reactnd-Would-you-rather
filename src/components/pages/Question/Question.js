@@ -20,7 +20,7 @@ class Question extends Component {
 
         if (!authenticated) {
             dispatch(saveRedirectionPath(location.pathname))
-            return <Redirect to='/' />
+            return <Redirect to='/auth' />
         }
 
         const clickHandler = !isAnswered

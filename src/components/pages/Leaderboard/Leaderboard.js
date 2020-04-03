@@ -9,7 +9,7 @@ class Leaderboard extends Component {
         const { authenticated, leaderboard, dispatch, match } = this.props
         if (!authenticated) {
             dispatch(saveRedirectionPath(match.path))
-            return <Redirect to='/' />
+            return <Redirect to='/auth' />
         }
 
         return (
@@ -30,7 +30,10 @@ class Leaderboard extends Component {
 
 const mapStateToProps = ({ authedUserData, users }) => {
     // Check the availability of data required for the rendering process
-    if (authedUserData !== null && Object.keys(users).length !== 0) {
+    if (
+        authedUserData !== null
+        && Object.keys(users).length !== 0
+    ) {
         let leaderboard = Object.keys(users).sort((userA, userB) => {
             const scoreA = Object.keys(users[userA].answers).length + users[userA].questions.length
             const scoreB = Object.keys(users[userB].answers).length + users[userB].questions.length

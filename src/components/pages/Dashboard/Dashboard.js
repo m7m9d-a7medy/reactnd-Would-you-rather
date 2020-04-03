@@ -19,7 +19,7 @@ class Dashboard extends Component {
         const { showing } = this.state
 
         if (!authenticated) {
-            return <Redirect to='/' />
+            return <Redirect to='/auth' />
         }
 
         let renderedQuestionIds = null

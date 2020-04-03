@@ -34,7 +34,7 @@ class NewQuestion extends Component {
         const { optionOneText, optionTwoText } = this.state
         if (!authenticated) {
             dispatch(saveRedirectionPath(match.path))
-            return <Redirect to='/' />
+            return <Redirect to='/auth' />
         }
 
         const valid = optionOneText && optionTwoText && true

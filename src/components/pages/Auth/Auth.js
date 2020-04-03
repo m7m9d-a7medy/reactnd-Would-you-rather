@@ -118,7 +118,7 @@ class Auth extends Component {
     }
 }
 
-const mapStateToProps = ({ authedUserData, redirection}) => {
+const mapStateToProps = ({ authedUserData, redirection }) => {
     return {
         authenticated: authedUserData !== null,
         redirection
