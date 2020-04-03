@@ -67,7 +67,7 @@ export const _saveQuestion = (formattedQuestion, author) => {
         const usersPromise = firebase.firestore()
             .doc(`users/${authedUser}`)
             .update({
-                questions: firebase.firestore.FieldValue.arrayUnion(formattedQuestion)
+                questions: firebase.firestore.FieldValue.arrayUnion(formattedQuestion.id)
             })
         promises.push(usersPromise)
 
