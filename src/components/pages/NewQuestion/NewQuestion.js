@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import classes from './NewQuestion.module.css'
 import { newQuestion } from '../../../store/actions/questions'
+import { saveRedirectionPath } from '../../../store/actions/redirection'
 
 class NewQuestion extends Component {
     state = {
@@ -29,9 +30,10 @@ class NewQuestion extends Component {
     }
 
     render() {
-        const { authenticated } = this.props
+        const { authenticated, match, dispatch } = this.props
         const { optionOneText, optionTwoText } = this.state
         if (!authenticated) {
+            dispatch(saveRedirectionPath(match.path))
             return <Redirect to='/' />
         }
 

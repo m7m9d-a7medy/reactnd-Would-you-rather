@@ -13,7 +13,7 @@ class Auth extends Component {
         username: '',
         name: '',
         avatarURL: '',
-        isSignUp: true
+        isSignUp: false
     }
 
     handleChange = (field, value) => {
@@ -40,10 +40,10 @@ class Auth extends Component {
 
     render() {
         const { email, password, username, name, avatarURL, isSignUp } = this.state
-        const { authenticated } = this.props
+        const { authenticated, redirection } = this.props
 
         if (authenticated) {
-            return <Redirect to='/dashboard' />
+            return <Redirect to={redirection} />
         }
 
         let signUpFields = null
@@ -82,7 +82,7 @@ class Auth extends Component {
         return (
             <div className={classes.Auth}>
                 <div className={classes.LogoBox}>
-                    <img className={classes.Logo} src={logo} alt='Would you rather? logo'/>
+                    <img className={classes.Logo} src={logo} alt='Would you rather? logo' />
                 </div>
                 <form className={classes.Form} onSubmit={this.handleSubmit}>
                     {signUpFields}
@@ -118,9 +118,10 @@ class Auth extends Component {
     }
 }
 
-const mapStateToProps = ({authedUserData}) => {
+const mapStateToProps = ({ authedUserData, redirection}) => {
     return {
-        authenticated: authedUserData !== null
+        authenticated: authedUserData !== null,
+        redirection
     }
 }
 

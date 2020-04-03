@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import UserCard from './UserCard/UserCard'
+import { saveRedirectionPath } from '../../../store/actions/redirection'
 
 class Leaderboard extends Component {
     render() {
-        const { authenticated, leaderboard } = this.props
+        const { authenticated, leaderboard, dispatch, match } = this.props
         if (!authenticated) {
+            dispatch(saveRedirectionPath(match.path))
             return <Redirect to='/' />
         }
 

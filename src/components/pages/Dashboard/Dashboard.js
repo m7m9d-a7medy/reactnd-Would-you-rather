@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { fetchQuestionsAndUsers } from '../../../store/actions/shared'
 import QuestionCard from './QuestionCard/QuestionCard'
 
 class Dashboard extends Component {
@@ -13,13 +12,6 @@ class Dashboard extends Component {
         this.setState({
             showing: e.target.id
         })
-    }
-
-    componentDidMount() {
-        const { authenticated, dispatch } = this.props
-        if (authenticated) {
-            dispatch(fetchQuestionsAndUsers())
-        }
     }
 
     render() {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import classes from './Question.module.css'
 import { saveAnswer } from '../../../store/actions/questions'
+import { saveRedirectionPath } from '../../../store/actions/redirection'
 
 class Question extends Component {
     answerHandler = answer => {
@@ -14,10 +15,15 @@ class Question extends Component {
     }
 
     render() {
-        const { authenticated, optionOne, optionTwo, timestamp, authorName, avatarURL, isAnswered } = this.props
+        const { loading, authenticated, optionOne, optionTwo, timestamp, authorName, avatarURL, isAnswered, location, dispatch } = this.props
 
         if (!authenticated) {
+            dispatch(saveRedirectionPath(location.pathname))
             return <Redirect to='/' />
+        }
+
+        if (loading) {
+            return <p>Loading...</p>
         }
 
         const clickHandler = !isAnswered
@@ -41,8 +47,13 @@ class Question extends Component {
     }
 }
 
-const mapStateToProps = ({ authedUserData, questions, users }, { match }) => {
-    if (authedUserData) {
+const mapStateToProps = ({ authedUserData, questions, users, loading }, { match }) => {
+    // Double check
+    if (
+        authedUserData
+        && Object.keys(questions).length !== 0
+        && Object.keys(users).length !== 0
+    ) {
         const questionId = match.params.id
         const { id } = authedUserData
         const { author, optionOne, optionTwo, timestamp } = questions[questionId]
@@ -50,11 +61,13 @@ const mapStateToProps = ({ authedUserData, questions, users }, { match }) => {
         const isAnswered = users[id].answers[questionId] ? users[id].answers[questionId] : null
 
         return {
+            loading,
             authenticated: authedUserData !== null,
             optionOne, optionTwo, timestamp, authorName, isAnswered, avatarURL, id
         }
     } else {
         return {
+            loading,
             authenticated: authedUserData !== null
         }
     }

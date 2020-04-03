@@ -4,6 +4,7 @@ import questions from './questions'
 import users from './users'
 import loading from './loading'
 import error from './error'
+import redirection from './redirection'
 
 const reducers = combineReducers({
     authedUserData: auth,
@@ -11,6 +12,7 @@ const reducers = combineReducers({
     users,
     loading,
     error,
+    redirection
 })
 
 export default reducers

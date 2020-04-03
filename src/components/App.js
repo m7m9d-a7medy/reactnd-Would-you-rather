@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { logout } from '../store/actions/auth'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Auth from './pages/Auth/Auth'
 import Dashboard from './pages/Dashboard/Dashboard'
@@ -8,10 +7,14 @@ import Navigation from './layout/navigation/Navigation'
 import Question from './pages/Question/Question'
 import NewQuestion from './pages/NewQuestion/NewQuestion'
 import Leaderboard from './pages/Leaderboard/Leaderboard'
+import { fetchQuestionsAndUsers } from '../store/actions/shared'
 
 class App extends Component {
-  logout = () => {
-    this.props.dispatch(logout())
+  componentDidUpdate() {
+    const { authenticated, dispatch } = this.props
+    if (authenticated) {
+      dispatch(fetchQuestionsAndUsers())
+    }
   }
 
   render() {
