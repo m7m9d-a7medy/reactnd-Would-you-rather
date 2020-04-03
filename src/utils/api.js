@@ -121,7 +121,7 @@ export const _saveQuestionAnswer = ({ authedUser, qid, answer }) => {
             .catch(err => rej(err))
 
         Promise.all(promises)
-            .then(() => res)
+            .then(() => res())
             .catch(err => rej(err))
     })
 }
