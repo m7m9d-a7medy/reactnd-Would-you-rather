@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import classes from './Question.module.css'
 import { saveAnswer } from '../../../store/actions/questions'
 import { saveRedirectionPath } from '../../../store/actions/redirection'
+import { dummyQuestion } from '../../../utils/helpers'
 
 class Question extends Component {
     answerHandler = answer => {
@@ -15,15 +16,11 @@ class Question extends Component {
     }
 
     render() {
-        const { loading, authenticated, optionOne, optionTwo, timestamp, authorName, avatarURL, isAnswered, location, dispatch } = this.props
+        const { authenticated, optionOne, optionTwo, timestamp, authorName, avatarURL, isAnswered, location, dispatch } = this.props
 
         if (!authenticated) {
             dispatch(saveRedirectionPath(location.pathname))
             return <Redirect to='/' />
-        }
-
-        if (loading) {
-            return <p>Loading...</p>
         }
 
         const clickHandler = !isAnswered
@@ -47,7 +44,7 @@ class Question extends Component {
     }
 }
 
-const mapStateToProps = ({ authedUserData, questions, users, loading }, { match }) => {
+const mapStateToProps = ({ authedUserData, questions, users }, { match }) => {
     // Double check
     if (
         authedUserData
@@ -61,14 +58,13 @@ const mapStateToProps = ({ authedUserData, questions, users, loading }, { match 
         const isAnswered = users[id].answers[questionId] ? users[id].answers[questionId] : null
 
         return {
-            loading,
             authenticated: authedUserData !== null,
             optionOne, optionTwo, timestamp, authorName, isAnswered, avatarURL, id
         }
     } else {
         return {
-            loading,
-            authenticated: authedUserData !== null
+            authenticated: authedUserData !== null,
+            ...dummyQuestion
         }
     }
 }

@@ -9,7 +9,6 @@ export default (state = false, action) => {
         case actionTypes.NEW_QUESTION_START:
             return true
 
-        case actionTypes.AUTH_SUCCESS:
         case actionTypes.FETCH_QUESTIONS_SUCCESSFUL:
         case actionTypes.FETCH_USERS_SUCCESSFUL:
         case actionTypes.SAVE_ANSWER_SUCCESSFUL:
