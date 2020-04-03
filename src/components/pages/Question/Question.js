@@ -5,6 +5,7 @@ import classes from './Question.module.css'
 import { saveAnswer } from '../../../store/actions/questions'
 import { saveRedirectionPath } from '../../../store/actions/redirection'
 import { dummyQuestion } from '../../../utils/helpers'
+import NotFound from './NotFound'
 
 class Question extends Component {
     answerHandler = answer => {
@@ -16,13 +17,18 @@ class Question extends Component {
     }
 
     render() {
-        const { authenticated, optionOne, optionTwo, timestamp, authorName, avatarURL, isAnswered, location, dispatch } = this.props
-
+        const { authenticated, exists, dispatch, location, ...questionData } = this.props
+        // Redirect to authentication page if not authenticated
         if (!authenticated) {
             dispatch(saveRedirectionPath(location.pathname))
             return <Redirect to='/auth' />
         }
-
+        // Check if the question exists
+        if (!exists) {
+            return <NotFound />
+        }
+        // Destructure question data
+        const { authorName, optionOne, optionTwo, timestamp, isAnswered, avatarURL } = questionData
         const clickHandler = !isAnswered
             ? e => this.answerHandler(e.target.id)
             : null
@@ -52,14 +58,23 @@ const mapStateToProps = ({ authedUserData, questions, users }, { match }) => {
         && Object.keys(users).length !== 0
     ) {
         const questionId = match.params.id
-        const { id } = authedUserData
-        const { author, optionOne, optionTwo, timestamp } = questions[questionId]
-        const { name: authorName, avatarURL } = users[author]
-        const isAnswered = users[id].answers[questionId] ? users[id].answers[questionId] : null
+        if (questions[questionId]) {
+            const { id } = authedUserData
+            const { author, optionOne, optionTwo, timestamp } = questions[questionId]
+            const { name: authorName, avatarURL } = users[author]
+            const isAnswered = users[id].answers[questionId] ? users[id].answers[questionId] : null
 
-        return {
-            authenticated: authedUserData !== null,
-            optionOne, optionTwo, timestamp, authorName, isAnswered, avatarURL, id
+            return {
+                authenticated: authedUserData !== null,
+                exists: true,
+                optionOne, optionTwo, timestamp, authorName, isAnswered, avatarURL, id
+            }
+        } else {
+            return {
+                authenticated: authedUserData !== null,
+                exists: false,
+                ...dummyQuestion
+            }
         }
     } else {
         return {
