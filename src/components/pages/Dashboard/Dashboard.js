@@ -5,6 +5,16 @@ import { fetchQuestionsAndUsers } from '../../../store/actions/shared'
 import QuestionCard from './QuestionCard/QuestionCard'
 
 class Dashboard extends Component {
+    state = {
+        showing: 'unanswered'
+    }
+
+    handleTab = e => {
+        this.setState({
+            showing: e.target.id
+        })
+    }
+
     componentDidMount() {
         const { authenticated, dispatch } = this.props
         if (authenticated) {
@@ -13,17 +23,33 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { authenticated, questionIds } = this.props
+        const { authenticated, answeredQuestionIds, uansweredQuestionIds } = this.props
+        const { showing } = this.state
+
         if (!authenticated) {
             return <Redirect to='/' />
+        }
+
+        let renderedQuestionIds = null
+        if (showing === 'answered') {
+            renderedQuestionIds = answeredQuestionIds
+        }
+        else {
+            renderedQuestionIds = uansweredQuestionIds
         }
 
         return (
             <div>
                 Dashboard
+                <button id='answered' onClick={this.handleTab}>
+                    Answered
+                </button>
+                <button id='unanswered' onClick={this.handleTab}>
+                    Unanswered
+                </button>
                 <ul>
                     {
-                        questionIds.map(id => (
+                        renderedQuestionIds.map(id => (
                             <QuestionCard key={id} id={id} />
                         ))
                     }
@@ -34,10 +60,24 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = ({ authedUserData, questions }) => {
-    
-    return {
-        authenticated: authedUserData !== null,
-        questionIds: Object.keys(questions).sort((a, b) => questions[b].timestamp - questions[a].timestamp)
+    // Check the availability of data required for the rendering process
+    if (authedUserData !== null && Object.keys(questions).length !== 0) {
+        const questionIds = Object.keys(questions).sort((a, b) => questions[b].timestamp - questions[a].timestamp)
+
+        const answeredQuestionIds = Object.keys(authedUserData.answers).sort((a, b) => questions[b].timestamp - questions[a].timestamp)
+        const uansweredQuestionIds = questionIds.filter(qid => !answeredQuestionIds.includes(qid))
+
+        return {
+            authenticated: authedUserData !== null,
+            answeredQuestionIds,
+            uansweredQuestionIds
+        }
+    } else {
+        return {
+            authenticated: authedUserData !== null,
+            answeredQuestionIds: [],
+            uansweredQuestionIds: []
+        }
     }
 }
 
