@@ -41,7 +41,7 @@ export const initAuth = ({ email, password, username, name, avatarURL, isSignUp 
                 })
                 .catch(err => {
                     console.log(err)
-                    dispatch(authFail())
+                    dispatch(authFail(err))
                 })
         }
     }
