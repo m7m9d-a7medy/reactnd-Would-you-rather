@@ -1,0 +1,42 @@
+.Dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 5rem;
+    justify-items: stretch;
+
+    border: 0.2rem solid var(--color-grey-light);
+    padding: 2rem 3rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    min-height: calc(100vh - var(--header-height));
+}
+
+.Button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.2rem solid var(--color-grey-light);
+    border-radius: 0.2rem;
+    color: var(--color-grey-dark);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.Button:hover {
+    background-color: var(--color-primary);
+    border: 0.2rem solid var(--color-primary);
+    color: white;   
+}
+
+.Button:focus {
+    outline: none;
+}
+
+.Cards {
+    grid-column: 1 / 3;
+}
+
+.Selected {
+    background-color: var(--color-primary);
+    border: 0.2rem solid var(--color-primary);
+    color: white;   
+}

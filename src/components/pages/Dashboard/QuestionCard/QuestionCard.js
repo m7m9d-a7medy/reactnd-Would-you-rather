@@ -4,33 +4,33 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 const QuestionCard = props => {
-    const { text, name, totalVotes, time, avatarURL, id } = props
+    const { text, name, avatarURL, id } = props
     // console.log(props)
 
     return (
         <div className={classes.QuestionCard}>
-            <p>Asked by: {name}</p>
-            <p>Time: {time}</p>
-            <p>Text: {text}</p>
-            <p>Votes: {totalVotes}</p>
-            <p>Avatar URL: {avatarURL}</p>
-            <Link to={`/questions/${id}`}>
-                View poll
-            </Link>
+            <p className={classes.QuestionHead}>{name} Asks</p>
+            <div className={classes.AvatarContainer}>
+                <img className={classes.AvatarImg} src={avatarURL} alt={name + ' Avatar'} />
+            </div>
+            <div className={classes.QuestionBody}>
+                <p>Would you rather?</p>
+                <p>{text}</p>
+                <Link className={classes.PollLink} to={`/questions/${id}`}>
+                    View poll
+                </Link>
+            </div>
         </div>
     )
 }
 
 const mapStateToProps = ({ users, questions }, { id }) => {
-    const { author, optionOne, optionTwo, timestamp } = questions[id]
+    const { author, optionOne } = questions[id]
     const { name, avatarURL } = users[author]
-    const totalVotes = optionOne.votes.length + optionTwo.votes.length
 
     return {
         text: `...${optionOne.text.slice(0, optionOne.text.length - 2)}...`,
         name,
-        totalVotes,
-        time: new Date(timestamp).toLocaleString(),
         avatarURL,
     }
 }

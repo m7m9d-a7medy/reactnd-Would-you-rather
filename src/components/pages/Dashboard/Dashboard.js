@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import QuestionCard from './QuestionCard/QuestionCard'
+import classes from './Dashboard.module.css'
 
 class Dashboard extends Component {
     state = {
@@ -30,16 +31,25 @@ class Dashboard extends Component {
             renderedQuestionIds = uansweredQuestionIds
         }
 
-        return (
-            <div>
-                Dashboard
-                <button id='answered' onClick={this.handleTab}>
+        const selectedBtnClasses = [classes.Button, classes.Selected].join(' ')
+
+        return renderedQuestionIds && (
+            <div className={classes.Dashboard}>
+                <button
+                    className={showing === 'answered' ? selectedBtnClasses : classes.Button}
+                    id='answered'
+                    onClick={this.handleTab}
+                >
                     Answered
                 </button>
-                <button id='unanswered' onClick={this.handleTab}>
+                <button
+                    className={showing === 'unanswered' ? selectedBtnClasses : classes.Button}
+                    id='unanswered'
+                    onClick={this.handleTab}
+                >
                     Unanswered
                 </button>
-                <ul>
+                <ul className={classes.Cards}>
                     {
                         renderedQuestionIds.map(id => (
                             <QuestionCard key={id} id={id} />
@@ -67,8 +77,8 @@ const mapStateToProps = ({ authedUserData, questions }) => {
     } else {
         return {
             authenticated: authedUserData !== null,
-            answeredQuestionIds: [],
-            uansweredQuestionIds: []
+            answeredQuestionIds: null,
+            uansweredQuestionIds: null
         }
     }
 }
