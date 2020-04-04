@@ -19,14 +19,7 @@ export function formatQuestion({ optionOneText, optionTwoText, author }) {
 }
 
 export const dummyQuestion = {
-    optionOne: {
-        text: '',
-        votes: []
-    },
-    optionTwo: {
-        text: '',
-        votes: []
-    },
+    options: [null, null],
     timestamp: 0,
     authorName: '',
     isAnswered: null,

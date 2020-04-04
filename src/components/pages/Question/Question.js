@@ -28,23 +28,38 @@ class Question extends Component {
             return <NotFound />
         }
         // Destructure question data
-        const { authorName, optionOne, optionTwo, timestamp, isAnswered, avatarURL } = questionData
+        const { authorName, options, isAnswered, avatarURL, totalVotes } = questionData
         const clickHandler = !isAnswered
             ? e => this.answerHandler(e.target.id)
             : null
 
+        const selectedOptionClasses = [classes.Option, classes.Selected].join(' ')
+
+        const optionElements = Object.keys(options).map(opKey => (
+            <div
+                key={opKey}
+                className={isAnswered === opKey ? selectedOptionClasses : classes.Option}
+                id={opKey}
+                onClick={clickHandler}>
+                <p>{options[opKey].text}</p>
+                {isAnswered ? (
+                    <p>
+                        Votes: {options[opKey].votes.length}, Percentage: {options[opKey].votes.length * 100 / totalVotes}%
+                    </p>
+                ) : null}
+            </div>
+        ))
+
         return (
             <div className={classes.Question}>
-                <p>Asked by: {authorName}</p>
-                <p id='optionOne' onClick={clickHandler}>Option 1: {optionOne.text}, Votes: {optionOne.votes.length}</p>
-                <p id='optionTwo' onClick={clickHandler}>Option 2: {optionTwo.text}, Votes: {optionTwo.votes.length}</p>
-                <p>Time: {new Date(timestamp).toLocaleDateString()}</p>
-                <p>Answered: {isAnswered}</p>
-                <div style={{
-                    background: `url(${avatarURL})`,
-                    height: 128,
-                    width: 128
-                }}></div>
+                <p className={classes.QuestionHead}>{authorName} Asks</p>
+                <div className={classes.AvatarContainer}>
+                    <img className={classes.AvatarImg} src={avatarURL} alt={authorName + ' Avatar'} />
+                </div>
+                <div className={classes.QuestionBody}>
+                    <p style={{ fontWeight: "bold" }}>Would you rather?</p>
+                    {optionElements}
+                </div>
             </div>
         )
     }
@@ -60,14 +75,16 @@ const mapStateToProps = ({ authedUserData, questions, users }, { match }) => {
         const questionId = match.params.id
         if (questions[questionId]) {
             const { id } = authedUserData
-            const { author, optionOne, optionTwo, timestamp } = questions[questionId]
+            const { author, optionOne, optionTwo } = questions[questionId]
             const { name: authorName, avatarURL } = users[author]
             const isAnswered = users[id].answers[questionId] ? users[id].answers[questionId] : null
+            const totalVotes = optionOne.votes.length + optionTwo.votes.length
+            const options = { optionOne, optionTwo }
 
             return {
                 authenticated: authedUserData !== null,
                 exists: true,
-                optionOne, optionTwo, timestamp, authorName, isAnswered, avatarURL, id
+                options, authorName, isAnswered, avatarURL, id, totalVotes
             }
         } else {
             return {
