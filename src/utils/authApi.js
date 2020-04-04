@@ -1,5 +1,16 @@
 import firebase from './firebase'
 
+export const _isSignedIn = () => {
+    return new Promise((resolve, reject) => {
+        const authData = localStorage.getItem('authData')
+        if (authData) {
+            resolve(JSON.parse(authData))
+        } else {
+            resolve(null)
+        }
+    })
+}
+
 export const _signUp = (email, password, username, name, avatarURL) => {
     return new Promise((resolve, reject) => {
         // Check if username exists in the database
@@ -51,7 +62,7 @@ export const _signUp = (email, password, username, name, avatarURL) => {
                         .catch(err => reject({ 'User authentication Error': err }))
                 }
             })
-            .catch(err => reject({'Username check error': err}))
+            .catch(err => reject({ 'Username check error': err }))
 
     })
 }

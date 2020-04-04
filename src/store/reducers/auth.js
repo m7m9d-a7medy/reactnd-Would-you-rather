@@ -1,4 +1,4 @@
-import { AUTH_SUCCESS, AUTH_FAIL, AUTH_LOGOUT, SAVE_ANSWER_START, SAVE_ANSWER_FAILED, NEW_QUESTION_START, NEW_QUESTION_FAILED } from '../actions/actionTypes'
+import { AUTH_SUCCESS, AUTH_FAIL, AUTH_LOGOUT, SAVE_ANSWER_START, SAVE_ANSWER_FAILED, NEW_QUESTION_START, NEW_QUESTION_FAILED, FETCH_DATA_SUCCESSFUL } from '../actions/actionTypes'
 
 const saveAnswerStart = (state, action) => {
     const { qid, answer } = action
@@ -47,6 +47,9 @@ export default (state = null, action) => {
     switch (action.type) {
         case AUTH_SUCCESS:
             return action.authedUserData
+        case FETCH_DATA_SUCCESSFUL:
+            // Reupdate current user
+            return action.data[1][JSON.parse(localStorage.getItem('authData')).id]
 
         case AUTH_FAIL:
         case AUTH_LOGOUT:

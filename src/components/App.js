@@ -8,6 +8,7 @@ import Question from './pages/Question/Question'
 import NewQuestion from './pages/NewQuestion/NewQuestion'
 import Leaderboard from './pages/Leaderboard/Leaderboard'
 import { fetchData } from '../store/actions/shared'
+import { isSignedIn } from '../store/actions/auth'
 
 class App extends Component {
   componentDidUpdate() {
@@ -15,6 +16,10 @@ class App extends Component {
     if (authenticated) {
       dispatch(fetchData())
     }
+  }
+
+  componentDidMount() {
+    this.props.dispatch(isSignedIn())
   }
 
   render() {
