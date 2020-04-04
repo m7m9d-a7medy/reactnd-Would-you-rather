@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import profileImage from '../../../../assets/imgs/profile.png'
 
 const readFileAsDataURL = (file) =>
     new Promise(resolve => {
@@ -48,7 +49,7 @@ class ImageInput extends React.Component {
     }
 
     state = {
-        value: ''
+        value: profileImage
     }
 
     handleFileChange = (event) => {
