@@ -1,7 +1,55 @@
 .NewQuestion {
-    margin: 2rem;
-    padding: 2rem;
-    border: .2rem solid var(--color-black);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 60rem;
+    min-height: 35rem;
+    font-size: 1.5rem;
+    background-color: var(--color-white);
+    padding: 3.5rem 5rem;
+    border: 0.2rem solid var(--color-grey-light);
+    border-radius: 0.5rem;
+    box-shadow: 0 2rem 6rem rgba(0,0,0, 0.05);
+}
+
+.NewQuestion p {
     font-size: 1.8rem;
+}
+
+.Option {
+    font: inherit;
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    border: 0.15rem solid var(--color-primary);
+    border-radius: 10rem;
+    display: block;
+    width: 100%;
     line-height: 1.7;
+}
+
+.Option:focus {
+    outline: none;
+    border: 0.15rem solid var(--color-primary-dark);
+}
+
+.Button {
+    margin-top: 2rem;
+    padding: 2rem;
+    border: 0.2rem solid var(--color-primary);
+    border-radius: 0.2rem;
+    display: flex;
+    text-decoration: none;
+    color: var(--color-primary);
+    background-color: var(--color-white);
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+}
+
+.Button:hover {
+    cursor: pointer;
+    color: var(--color-white);
+    background-color: var(--color-primary);
 }

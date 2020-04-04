@@ -26,7 +26,7 @@ class NewQuestion extends Component {
         const { dispatch, author } = this.props
         const { optionOneText, optionTwoText } = this.state
         // todo: Save question to database
-        dispatch(newQuestion({optionOneText, optionTwoText, author}))
+        dispatch(newQuestion({ optionOneText, optionTwoText, author }))
     }
 
     render() {
@@ -40,29 +40,32 @@ class NewQuestion extends Component {
         const valid = optionOneText && optionTwoText && true
 
         return (
-            <div className={classes.NewQuestion}>
-                <form onSubmit={this.submitNewQuestion}>
-                    <input
-                        type='text'
-                        placeholder='Option One'
-                        required
-                        id='optionOneText'
-                        onChange={this.handleChange}
-                        value={optionOneText}
-                    />
-                    <input
-                        type='text'
-                        placeholder='Option Two'
-                        required
-                        id='optionTwoText'
-                        onChange={this.handleChange}
-                        value={optionTwoText}
-                    />
-                    <button type='submit' disabled={!valid}>
-                        Submit
-                    </button>
-                </form>
-            </div>
+            <form onSubmit={this.submitNewQuestion} className={classes.NewQuestion}>
+
+                <p>Would you rather?</p>
+                <input
+                    className={classes.Option}
+                    type='text'
+                    placeholder='Option One'
+                    required
+                    id='optionOneText'
+                    onChange={this.handleChange}
+                    value={optionOneText}
+                />
+                <p>Or</p>
+                <input
+                    className={classes.Option}
+                    type='text'
+                    placeholder='Option Two'
+                    required
+                    id='optionTwoText'
+                    onChange={this.handleChange}
+                    value={optionTwoText}
+                />
+                <button className={classes.Button} type='submit' disabled={!valid}>
+                    Submit
+                </button>
+            </form>
         )
     }
 }
