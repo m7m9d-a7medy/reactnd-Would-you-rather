@@ -7,12 +7,17 @@ const UserCard = props => {
 
     return (
         <div className={classes.UserCard}>
-            <p>Name: {name}</p>
-            <p>Avatar: {avatarURL}</p>
-            <p>questionCount: {questionCount}</p>
-            <p>answerCount: {answerCount}</p>
-            <p>Avatar URL: {avatarURL}</p>
-            <p>score: {score}</p>
+            <p className={classes.UserHead}>{name}</p>
+            <div className={classes.AvatarContainer}>
+                <img className={classes.AvatarImg} src={avatarURL} alt={name + ' Avatar'} />
+            </div>
+            <div className={classes.ScoreSummary}>
+                <p>Answers: {answerCount}</p>
+                <p>Questions: {questionCount}</p>
+            </div>
+            <p className={classes.Score}>
+                Total score <span>{score}</span>
+            </p>
         </div>
     )
 }

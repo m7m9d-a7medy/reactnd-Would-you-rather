@@ -13,7 +13,7 @@ class Leaderboard extends Component {
         }
 
         return (
-            <ul>
+            <ul style={{listStyle: 'none'}}>
                 {
                     leaderboard.map(user => (
                         <li key={user.id}>

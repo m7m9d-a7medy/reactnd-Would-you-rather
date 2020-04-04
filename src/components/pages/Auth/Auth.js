@@ -61,7 +61,7 @@ class Auth extends Component {
                         className={classes.TextInput}
                         name='username'
                         type='text'
-                        placeholder='Your username'
+                        placeholder='Username'
                         value={username}
                         onChange={e => this.handleChange('username', e.target.value)}
                         required
@@ -70,7 +70,7 @@ class Auth extends Component {
                         className={classes.TextInput}
                         name='name'
                         type='text'
-                        placeholder='Your name'
+                        placeholder='Name'
                         value={name}
                         onChange={e => this.handleChange('name', e.target.value)}
                         required
@@ -91,7 +91,7 @@ class Auth extends Component {
                         required
                         name='email'
                         type='email'
-                        placeholder='Your Email'
+                        placeholder='Email'
                         value={email}
                         onChange={e => this.handleChange('email', e.target.value)}
                     />
@@ -100,7 +100,7 @@ class Auth extends Component {
                         required
                         name='password'
                         type='password'
-                        placeholder='Your password'
+                        placeholder='Password'
                         value={password}
                         onChange={e => this.handleChange('password', e.target.value)}
                     />
