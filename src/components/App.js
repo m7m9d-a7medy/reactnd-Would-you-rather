@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
+import Layout from './Layout/Layout'
 import Auth from './pages/Auth/Auth'
 import Dashboard from './pages/Dashboard/Dashboard'
-import Navigation from './layout/navigation/Navigation'
 import Question from './pages/Question/Question'
 import NewQuestion from './pages/NewQuestion/NewQuestion'
 import Leaderboard from './pages/Leaderboard/Leaderboard'
@@ -19,8 +19,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Navigation />
+      <Layout>
         <Switch>
           <Route exact path='/' component={Dashboard} />
           <Route path='/auth' component={Auth} />
@@ -29,7 +28,7 @@ class App extends Component {
           <Route path='/leaderboard' component={Leaderboard} />
           <Redirect to='/' />
         </Switch>
-      </div>
+      </Layout>
     )
   }
 }

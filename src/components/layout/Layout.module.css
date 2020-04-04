@@ -1,0 +1,103 @@
+:root {
+  --container-width: 96rem;
+  --header-height: 6rem;
+}
+
+.Layout {
+    display: grid;
+    grid-template-rows: [header-start] var(--header-height) [header-end main-start] minmax(calc(100vh - 5rem - 3rem), min-content) [main-end footer-start] 3rem [footer-end];
+    grid-template-columns: [full-start] 1fr [container-start] minmax(min-content, var(--container-width)) [container-end] 1fr [full-end];
+    justify-items: center;
+    justify-content: center;
+}
+
+.LayoutContainer {
+    grid-row: main-start / main-end;
+    grid-column: container-start / container-end;
+    margin-top: 2rem;
+}
+
+.Header {
+    grid-row: header-start / header-end;
+    grid-column: full-start / full-end;
+    display: grid;
+    grid-template-columns: [full-start] 1fr [nav-start] minmax(min-content, calc(var(--container-width) * 0.4)) [nav-end user-start] minmax(min-content, calc(var(--container-width) * 0.6)) [user-end] 1fr [full-end];
+    grid-template-rows: var(--header-height);
+    height: var(--header-height);
+    border-bottom: .3rem solid var(--color-primary);
+    width: 100%;
+}
+
+.Footer {
+    grid-row: footer-start / footer-end;
+    grid-column: full-start / full-end;
+    font-size: 1.5rem;
+    padding: 0 0 1rem;
+    color: var(--color-grey-light);
+}
+
+/* HEADER */
+
+/* Navigation */
+.Navigation {
+    grid-column: nav-start / nav-end;
+    height: 100%;
+    display: flex;
+    font-size: 1.4rem;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.NavigationLink:link,
+.NavigationLink:visited {
+    position: relative;
+    display: flex;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    padding: 0 1.5rem;
+    color: var(--color-grey-dark);
+
+    justify-content: center;
+    align-items: center;
+}
+
+.NavigationLink:hover,
+.NavigationLink:active,
+.NavigationLink.active {
+    color: var(--color-white);
+    background-color: var(--color-primary);
+}
+
+/* Current User */
+.CurrentUser {
+    grid-column: user-start / user-end;
+    grid-row: 0 / 1;
+    display: flex;
+    font-size: 1.4rem;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.CurrentUser p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 auto;
+    margin-right: 1rem;
+    cursor: default;
+}
+
+.AvatarContainer {
+    padding: 0.5rem;
+    flex: 0 0 6rem;
+}
+
+.AvatarImg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 0.2rem solid var(--color-primary);
+}

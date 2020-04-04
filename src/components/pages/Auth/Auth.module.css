@@ -1,6 +1,5 @@
 .Auth {
     max-width: 50rem;
-    margin: 2rem auto;
     padding: 3rem 8rem;
     border: .6rem double var(--color-primary-darkest);
     box-shadow: 0 .5rem 1rem inset var(--color-primary-lighter);
