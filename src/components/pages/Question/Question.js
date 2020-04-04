@@ -44,7 +44,7 @@ class Question extends Component {
                 <p>{options[opKey].text}</p>
                 {isAnswered ? (
                     <p>
-                        Votes: {options[opKey].votes.length}, Percentage: {options[opKey].votes.length * 100 / totalVotes}%
+                        Votes: {options[opKey].votes.length}, Percentage: {(options[opKey].votes.length * 100 / totalVotes).toFixed(2)}%
                     </p>
                 ) : null}
             </div>
