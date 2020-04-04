@@ -9,7 +9,8 @@ class NewQuestion extends Component {
     state = {
         optionOneText: '',
         optionTwoText: '',
-        valid: false
+        valid: false,
+        submitted: false
     }
 
     handleChange = e => {
@@ -25,16 +26,21 @@ class NewQuestion extends Component {
         console.log('[NewQuestion]', this.state)
         const { dispatch, author } = this.props
         const { optionOneText, optionTwoText } = this.state
-        // todo: Save question to database
+
         dispatch(newQuestion({ optionOneText, optionTwoText, author }))
+        this.setState({ submitted: true })
     }
 
     render() {
         const { authenticated, match, dispatch } = this.props
-        const { optionOneText, optionTwoText } = this.state
+        const { optionOneText, optionTwoText, submitted } = this.state
         if (!authenticated) {
             dispatch(saveRedirectionPath(match.path))
             return <Redirect to='/auth' />
+        }
+
+        if (submitted) {
+            return <Redirect to='/' />
         }
 
         const valid = optionOneText && optionTwoText && true
