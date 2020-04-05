@@ -14,6 +14,9 @@ export default (state = null, action) => {
         case actionTypes.NEW_QUESTION_FAILED:
             return action.error
 
+        case actionTypes.CLEAR_ERROR:
+            return null
+
         default:
             return state
     }

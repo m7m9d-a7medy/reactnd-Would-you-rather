@@ -21,3 +21,6 @@ export const SAVE_ANSWER_FAILED = 'SAVE_ANSWER_FAILED'
 
 // Redirection
 export const SAVE_REDIRECTION_PATH = 'SAVE_REDIRECTION_PATH'
+
+// Error
+export const CLEAR_ERROR = 'CLEAR_ERROR'

@@ -8,6 +8,7 @@ import App from './components/App'
 import { firebaseInit } from './utils/firebase'
 import reducers from './store/reducers'
 import middleware from './store/middleware'
+import ErrorBoundary from './components/hoc/ErrorBoundary'
 
 firebaseInit()
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -16,9 +17,11 @@ const store = createStore(reducers, composeEnhancers(middleware))
 
 const app = (
     <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+        <ErrorBoundary>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </ErrorBoundary>
     </Provider>
 )
 
