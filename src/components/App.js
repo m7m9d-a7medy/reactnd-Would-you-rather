@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import Layout from './Layout/Layout'
+import Layout from './layout/Layout'
 import Auth from './pages/Auth/Auth'
 import { fetchData } from '../store/actions/shared'
 import { isSignedIn } from '../store/actions/auth'
