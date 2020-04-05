@@ -1,3 +1,5 @@
+import profile from '../assets/imgs/profile.png'
+
 function generateUID() {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
@@ -23,6 +25,6 @@ export const dummyQuestion = {
     timestamp: 0,
     authorName: '',
     isAnswered: null,
-    avatarURL: '',
+    avatarURL: profile,
     id: ''
 }

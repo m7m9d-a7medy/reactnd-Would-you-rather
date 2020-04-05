@@ -9,6 +9,7 @@
     grid-template-columns: [full-start] 1fr [container-start] minmax(min-content, var(--container-width)) [container-end] 1fr [full-end];
     justify-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .LayoutContainer {

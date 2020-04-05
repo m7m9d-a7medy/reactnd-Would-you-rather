@@ -17,38 +17,44 @@ class Question extends Component {
     }
 
     render() {
-        const { authenticated, exists, dispatch, location, ...questionData } = this.props
+        const { authenticated, exists, loading, dispatch, location, ...questionData } = this.props
         // Redirect to authentication page if not authenticated
         if (!authenticated) {
             dispatch(saveRedirectionPath(location.pathname))
             return <Redirect to='/auth' />
         }
-        // Check if the question exists
-        if (!exists) {
-            return <NotFound />
-        }
+
         // Destructure question data
-        const { authorName, options, isAnswered, avatarURL, totalVotes } = questionData
-        const clickHandler = !isAnswered
-            ? e => this.answerHandler(e.target.id)
-            : null
+        const { options, isAnswered, totalVotes, authorName, avatarURL } = questionData
+        
+        let optionElements = null
+        // Check if loading, this check will prevent Errors when choosing an option while the state is not ready yet
+        if (!loading) {
+            // Check if the question exists
+            if (!exists) {
+                return <NotFound />
+            }
+            const clickHandler = !isAnswered
+                ? e => this.answerHandler(e.target.id)
+                : null
 
-        const selectedOptionClasses = [classes.Option, classes.Selected].join(' ')
+            const selectedOptionClasses = [classes.Option, classes.Selected].join(' ')
 
-        const optionElements = Object.keys(options).map(opKey => (
-            <div
-                key={opKey}
-                className={isAnswered === opKey ? selectedOptionClasses : classes.Option}
-                id={opKey}
-                onClick={clickHandler}>
-                <p>{options[opKey].text}</p>
-                {isAnswered ? (
-                    <p>
-                        Votes: {options[opKey].votes.length}, Percentage: {(options[opKey].votes.length * 100 / totalVotes).toFixed(2)}%
-                    </p>
-                ) : null}
-            </div>
-        ))
+            optionElements = Object.keys(options).map(opKey => (
+                <div
+                    key={opKey}
+                    className={isAnswered === opKey ? selectedOptionClasses : classes.Option}
+                    id={opKey}
+                    onClick={clickHandler}>
+                    <p>{options[opKey].text}</p>
+                    {isAnswered ? (
+                        <p>
+                            Votes: {options[opKey].votes.length}, Percentage: {(options[opKey].votes.length * 100 / totalVotes).toFixed(2)}%
+                        </p>
+                    ) : null}
+                </div>
+            ))
+        }
 
         return (
             <div className={classes.Question}>
@@ -65,7 +71,7 @@ class Question extends Component {
     }
 }
 
-const mapStateToProps = ({ authedUserData, questions, users }, { match }) => {
+const mapStateToProps = ({ authedUserData, questions, users, loading }, { match }) => {
     // Double check
     if (
         authedUserData
@@ -84,18 +90,21 @@ const mapStateToProps = ({ authedUserData, questions, users }, { match }) => {
             return {
                 authenticated: authedUserData !== null,
                 exists: true,
+                loading,
                 options, authorName, isAnswered, avatarURL, id, totalVotes
             }
         } else {
             return {
                 authenticated: authedUserData !== null,
                 exists: false,
+                loading,
                 ...dummyQuestion
             }
         }
     } else {
         return {
             authenticated: authedUserData !== null,
+            loading,
             ...dummyQuestion
         }
     }

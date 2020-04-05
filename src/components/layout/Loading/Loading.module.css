@@ -1,0 +1,23 @@
+.Loading {
+    position: absolute;
+    height: 0.5rem;
+    width: 100%;
+    border: none;
+    top: var(--header-height);
+    left: 0;
+    animation: loading ease-in 0.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-color: var(--color-primary-lightest);
+    }
+
+    50% {
+        background-color: var(--color-primary);
+    }
+
+    100% {
+        background-color: var(--color-primary-lightest);
+    }
+}
