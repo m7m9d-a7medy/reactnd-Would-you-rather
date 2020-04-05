@@ -14,7 +14,7 @@ const ErrorBoundary = props => {
                 show={props.error}
                 modalClosed={errorConfirmedHandler}
             >
-                {props.error ? props.message : null}
+                {props.error ? props.error.message : null}
             </Modal>
             {props.children}
         </Fragment>
