@@ -3,12 +3,15 @@ import { connect } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Layout from './Layout/Layout'
 import Auth from './pages/Auth/Auth'
-import Dashboard from './pages/Dashboard/Dashboard'
-import Question from './pages/Question/Question'
-import NewQuestion from './pages/NewQuestion/NewQuestion'
-import Leaderboard from './pages/Leaderboard/Leaderboard'
 import { fetchData } from '../store/actions/shared'
 import { isSignedIn } from '../store/actions/auth'
+import asyncComponent from './hoc/asyncComponent'
+
+// Lazy loading
+const Dashboard = asyncComponent(() => import('./pages/Dashboard/Dashboard'))
+const Question = asyncComponent(() => import('./pages/Question/Question'))
+const NewQuestion = asyncComponent(() => import('./pages/NewQuestion/NewQuestion'))
+const Leaderboard = asyncComponent(() => import('./pages/Leaderboard/Leaderboard'))
 
 class App extends Component {
   componentDidUpdate() {
