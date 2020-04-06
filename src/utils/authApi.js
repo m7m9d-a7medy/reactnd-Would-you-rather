@@ -17,7 +17,8 @@ export const _signUp = (email, password, username, name, avatarURL) => {
         firebase.firestore().doc(`users/${username}`).get()
             .then(doc => {
                 if (doc.exists) {
-                    reject('Username exists')
+                    const err = { message: 'This username exists already' }
+                    reject({ 'Username exists': err })
                 } else {
                     // User is signing up
                     firebase.auth().createUserWithEmailAndPassword(email, password)

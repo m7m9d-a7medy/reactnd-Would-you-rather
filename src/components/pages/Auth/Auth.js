@@ -102,6 +102,7 @@ class Auth extends Component {
                         type='password'
                         placeholder='Password'
                         value={password}
+                        minLength={6}
                         onChange={e => this.handleChange('password', e.target.value)}
                     />
                     <button className={classes.Btn} type="submit">
