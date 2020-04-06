@@ -23,7 +23,7 @@ class NewQuestion extends Component {
 
     submitNewQuestion = e => {
         e.preventDefault()
-        console.log('[NewQuestion]', this.state)
+        // console.log('[NewQuestion]', this.state)
         const { dispatch, author } = this.props
         const { optionOneText, optionTwoText } = this.state
 

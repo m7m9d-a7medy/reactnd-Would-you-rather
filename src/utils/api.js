@@ -2,7 +2,7 @@ import firebase from './firebase'
 
 export const storeLocalUsers = users => {
     for (const user of Object.keys(users)) {
-        console.log(user)
+        // console.log(user)
 
         firebase.firestore()
             .doc(`users/${user}`)
@@ -13,7 +13,7 @@ export const storeLocalUsers = users => {
 
 export const storeLocalQuestions = questions => {
     for (const question of Object.keys(questions)) {
-        console.log(question)
+        // console.log(question)
 
         firebase.firestore()
             .doc(`questions/${question}`)

@@ -16,7 +16,6 @@ const fetchDataFailed = error => ({
 })
 
 export const fetchData = () => dispatch => {
-    // todo: Loading start
     dispatch(fetchDataStart())
     const promises = [_getQuestions(), _getUsers()]
 

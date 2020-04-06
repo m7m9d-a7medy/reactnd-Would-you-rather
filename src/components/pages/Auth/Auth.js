@@ -32,9 +32,8 @@ class Auth extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        console.log('Submitted', this.state)
+        // console.log('Submitted', this.state)
 
-        // todo: dispatch auth action
         this.props.dispatch(initAuth(this.state))
     }
 

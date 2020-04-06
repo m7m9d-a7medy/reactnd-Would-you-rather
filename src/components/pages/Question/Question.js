@@ -12,7 +12,7 @@ class Question extends Component {
         const { id: qid } = this.props.match.params
         const { id: uid, dispatch } = this.props
 
-        console.log('[Answer], ', qid, uid, answer)
+        // console.log('[Answer], ', qid, uid, answer)
         dispatch(saveAnswer(uid, qid, answer))
     }
 
