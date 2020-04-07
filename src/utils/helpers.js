@@ -21,10 +21,23 @@ export function formatQuestion({ optionOneText, optionTwoText, author }) {
 }
 
 export const dummyQuestion = {
-    options: [null, null],
+    options: { optionOne: { text: '', votes: [] }, optionTwo: { text: '', votes: [] } },
     timestamp: 0,
     authorName: '',
     isAnswered: null,
     avatarURL: profile,
     id: ''
+}
+
+export const questionFetch = (questionId, authedUserData, questions, users) => {
+    const { id } = authedUserData
+    const { author, optionOne, optionTwo } = questions[questionId]
+    const { name: authorName, avatarURL } = users[author]
+    const isAnswered = users[id].answers[questionId] ? users[id].answers[questionId] : null
+    const totalVotes = optionOne.votes.length + optionTwo.votes.length
+    const options = { optionOne, optionTwo }
+
+    return {
+        options, authorName, isAnswered, avatarURL, id, totalVotes
+    }
 }

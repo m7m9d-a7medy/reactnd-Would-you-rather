@@ -2,7 +2,7 @@ export let users = {
     sarahedo: {
         id: 'sarahedo',
         name: 'Sarah Edo',
-        avatarURL: '',
+        avatarURL: 'https://firebasestorage.googleapis.com/v0/b/ahmedy-would-you-rather.appspot.com/o/users%2Fsarahedo%2Favatar.jpg?alt=media&token=01a4a690-370d-4e5f-9b99-f3a9d7e83c71',
         answers: {
             "8xf0y6ziyjabvozdd253nd": 'optionOne',
             "6ni6ok3ym7mf1p33lnez": 'optionTwo',
@@ -14,7 +14,7 @@ export let users = {
     tylermcginnis: {
         id: 'tylermcginnis',
         name: 'Tyler McGinnis',
-        avatarURL: '',
+        avatarURL: 'https://firebasestorage.googleapis.com/v0/b/ahmedy-would-you-rather.appspot.com/o/users%2Ftylermcginnis%2Favatar.jpg?alt=media&token=5489069a-30fb-433f-afff-81c9db36e366',
         answers: {
             "vthrdm985a262al8qx3do": 'optionOne',
             "xj352vofupe1dqz9emx13r": 'optionTwo',
@@ -24,7 +24,7 @@ export let users = {
     johndoe: {
         id: 'johndoe',
         name: 'John Doe',
-        avatarURL: '',
+        avatarURL: 'https://firebasestorage.googleapis.com/v0/b/ahmedy-would-you-rather.appspot.com/o/users%2Fjohndoe%2Favatar.png?alt=media&token=f4f9e3d6-6ae3-4c79-a475-2de4c75ad450',
         answers: {
             "xj352vofupe1dqz9emx13r": 'optionOne',
             "vthrdm985a262al8qx3do": 'optionTwo',

@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 import classes from './Question.module.css'
 import { saveAnswer } from '../../../store/actions/questions'
 import { saveRedirectionPath } from '../../../store/actions/redirection'
-import { dummyQuestion } from '../../../utils/helpers'
+import { dummyQuestion, questionFetch } from '../../../utils/helpers'
 import NotFound from './NotFound'
+import SignInNotification from './SignInNotification'
 
 class Question extends Component {
     answerHandler = answer => {
         const { id: qid } = this.props.match.params
         const { id: uid, dispatch } = this.props
 
-        // console.log('[Answer], ', qid, uid, answer)
         dispatch(saveAnswer(uid, qid, answer))
     }
 
@@ -21,12 +20,13 @@ class Question extends Component {
         // Redirect to authentication page if not authenticated
         if (!authenticated) {
             dispatch(saveRedirectionPath(location.pathname))
-            return <Redirect to='/auth' />
+            // Sign in
+            return <SignInNotification />
         }
 
         // Destructure question data
         const { options, isAnswered, totalVotes, authorName, avatarURL } = questionData
-        
+
         let optionElements = null
         // Check if loading, this check will prevent Errors when choosing an option while the state is not ready yet
         if (!loading) {
@@ -35,8 +35,8 @@ class Question extends Component {
                 return <NotFound />
             }
             const clickHandler = !isAnswered
-                ? e => this.answerHandler(e.target.id)
-                : null
+                ? this.answerHandler
+                : () => {}
 
             const selectedOptionClasses = [classes.Option, classes.Selected].join(' ')
 
@@ -44,8 +44,7 @@ class Question extends Component {
                 <div
                     key={opKey}
                     className={isAnswered === opKey ? selectedOptionClasses : classes.Option}
-                    id={opKey}
-                    onClick={clickHandler}>
+                    onClick={() => clickHandler(opKey)}>
                     <p>{options[opKey].text}</p>
                     {isAnswered ? (
                         <p>
@@ -73,6 +72,8 @@ class Question extends Component {
 
 const mapStateToProps = ({ authedUserData, questions, users, loading }, { match }) => {
     // Double check
+    let question = null
+    let exists = null
     if (
         authedUserData
         && Object.keys(questions).length !== 0
@@ -80,33 +81,21 @@ const mapStateToProps = ({ authedUserData, questions, users, loading }, { match 
     ) {
         const questionId = match.params.id
         if (questions[questionId]) {
-            const { id } = authedUserData
-            const { author, optionOne, optionTwo } = questions[questionId]
-            const { name: authorName, avatarURL } = users[author]
-            const isAnswered = users[id].answers[questionId] ? users[id].answers[questionId] : null
-            const totalVotes = optionOne.votes.length + optionTwo.votes.length
-            const options = { optionOne, optionTwo }
-
-            return {
-                authenticated: authedUserData !== null,
-                exists: true,
-                loading,
-                options, authorName, isAnswered, avatarURL, id, totalVotes
-            }
+            exists = true
+            question = questionFetch(questionId, authedUserData, questions, users)
         } else {
-            return {
-                authenticated: authedUserData !== null,
-                exists: false,
-                loading,
-                ...dummyQuestion
-            }
+            exists = false
+            question = dummyQuestion
         }
     } else {
-        return {
-            authenticated: authedUserData !== null,
-            loading,
-            ...dummyQuestion
-        }
+        question = dummyQuestion
+    }
+
+    return {
+        authenticated: authedUserData !== null,
+        exists,
+        loading,
+        ...question
     }
 }
 
