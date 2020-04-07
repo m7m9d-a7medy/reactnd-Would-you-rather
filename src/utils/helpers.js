@@ -41,3 +41,20 @@ export const questionFetch = (questionId, authedUserData, questions, users) => {
         options, authorName, isAnswered, avatarURL, id, totalVotes
     }
 }
+
+export const getLeaderboard = (users) => {
+    return Object.keys(users).sort((userA, userB) => {
+        const scoreA = Object.keys(users[userA].answers).length + users[userA].questions.length
+        const scoreB = Object.keys(users[userB].answers).length + users[userB].questions.length
+
+        return scoreB - scoreA
+    })
+        .splice(0, 5)
+        .map(userId => ({
+            answerCount: Object.keys(users[userId].answers).length,
+            questionCount: users[userId].questions.length,
+            avatarURL: users[userId].avatarURL,
+            name: users[userId].name,
+            id: users[userId].id
+        }))
+}

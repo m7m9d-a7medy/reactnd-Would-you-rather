@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import UserCard from './UserCard/UserCard'
 import { saveRedirectionPath } from '../../../store/actions/redirection'
+import { getLeaderboard } from '../../../utils/helpers'
 
 class Leaderboard extends Component {
     render() {
@@ -34,20 +35,7 @@ const mapStateToProps = ({ authedUserData, users }) => {
         authedUserData !== null
         && Object.keys(users).length !== 0
     ) {
-        let leaderboard = Object.keys(users).sort((userA, userB) => {
-            const scoreA = Object.keys(users[userA].answers).length + users[userA].questions.length
-            const scoreB = Object.keys(users[userB].answers).length + users[userB].questions.length
-
-            return scoreB - scoreA
-        })
-            .splice(0, 5)
-            .map(userId => ({
-                answerCount: Object.keys(users[userId].answers).length,
-                questionCount: users[userId].questions.length,
-                avatarURL: users[userId].avatarURL,
-                name: users[userId].name,
-                id: users[userId].id
-            }))
+        let leaderboard = getLeaderboard(users)
 
         return {
             authenticated: authedUserData !== null,
