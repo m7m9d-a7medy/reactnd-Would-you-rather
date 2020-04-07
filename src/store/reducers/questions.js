@@ -1,4 +1,4 @@
-import { SAVE_ANSWER_START, SAVE_ANSWER_FAILED, NEW_QUESTION_START, NEW_QUESTION_FAILED, FETCH_DATA_SUCCESSFUL } from '../actions/actionTypes'
+import { SAVE_ANSWER_START, SAVE_ANSWER_FAILED, NEW_QUESTION_START, NEW_QUESTION_FAILED, FETCH_DATA_SUCCESSFUL, RESET_DATA } from '../actions/actionTypes'
 
 const fetchQuestionsSuccessful = (state, action) => action.data[0]
 
@@ -49,6 +49,9 @@ export default (state = {}, action) => {
     switch (action.type) {
         case FETCH_DATA_SUCCESSFUL:
             return fetchQuestionsSuccessful(state, action)
+
+        case RESET_DATA:
+            return {}
 
         case SAVE_ANSWER_START:
             return saveAnswerStart(state, action)

@@ -1,5 +1,7 @@
 import { AUTH_SUCCESS, AUTH_FAIL, AUTH_LOGOUT, AUTH_START } from './actionTypes'
 import { _signUp, _signIn, _logout, _isSignedIn } from '../../utils/authApi'
+import { resetRedirectionPath } from './redirection'
+import { resetData } from './shared'
 
 const authStart = () => ({
     type: AUTH_START
@@ -57,9 +59,11 @@ export const initAuth = ({ email, password, username, name, avatarURL, isSignUp 
 
 export const logout = () => {
     return dispatch => {
+        dispatch(resetRedirectionPath())
         _logout()
             .then(res => {
                 dispatch(authLogout())
+                dispatch(resetData())
                 localStorage.removeItem('authData')
             })
             .catch(err => console.log(err))

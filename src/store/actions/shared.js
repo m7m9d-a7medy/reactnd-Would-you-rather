@@ -1,4 +1,4 @@
-import { FETCH_DATA_START, FETCH_DATA_SUCCESSFUL, FETCH_DATA_FAILED } from './actionTypes'
+import { FETCH_DATA_START, FETCH_DATA_SUCCESSFUL, FETCH_DATA_FAILED, RESET_DATA } from './actionTypes'
 import { _getQuestions, _getUsers } from '../../utils/api'
 
 const fetchDataStart = () => ({
@@ -13,6 +13,10 @@ const fetchDataSuccessful = data => ({
 const fetchDataFailed = error => ({
     type: FETCH_DATA_FAILED,
     error,
+})
+
+export const resetData = () => ({
+    type: RESET_DATA
 })
 
 export const fetchData = () => dispatch => {
