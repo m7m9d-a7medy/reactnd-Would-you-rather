@@ -1,4 +1,4 @@
-# MyReads Project
+# Would you rather? Project
 This is Would you rather? Project for Udacity React Nanodegree program.  
 
 To get started:
